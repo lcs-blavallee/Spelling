@@ -17,14 +17,23 @@ struct QuizView: View {
     // Guess text inputed by the user
     @State var guess: String = ""
     
+    // What was the outcome of the guess
+    
+    @State var currentOutcome: Outcome = .undetermined
+    
     
     // MARK: Computed properties
     var body: some View {
         
         VStack {
-            Image(currentItem.imageName)
-                .resizable()
-                .scaledToFit()
+            ZStack {
+                Image(currentItem.imageName)
+                    .resizable()
+                    .scaledToFit()
+                
+                Text(currentOutcome.rawValue)
+                    .font(.system(size: 100))
+            }
             
             TextField("Guess the food", text: $guess)
                 .padding()
@@ -43,8 +52,10 @@ struct QuizView: View {
     //MARK: Functions
     func checkGuess() {
         if guess == currentItem.word {
+            currentOutcome = .correct
             print("correct")
         } else {
+            currentOutcome = .incorrect
             print("incorrect")
         }
     }
