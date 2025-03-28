@@ -38,11 +38,20 @@ struct QuizView: View {
             TextField("Guess the food", text: $guess)
                 .padding()
                 .frame(width: 300, height: 50)
-            
-            Button {
-                checkGuess()
-            } label : {
-                Text("Submit")
+            HStack {
+                
+                Button {
+                    newWord()
+                } label: {
+                    Text("New Word")
+                }
+                
+                
+                Button {
+                    checkGuess()
+                } label : {
+                    Text("Submit")
+                }
             }
             
         }
@@ -58,6 +67,12 @@ struct QuizView: View {
             currentOutcome = .incorrect
             print("incorrect")
         }
+    }
+    
+    func newWord() {
+        currentItem = itemsToSpell.randomElement()!
+        guess = ""
+        currentOutcome = .undetermined
     }
 }
 
