@@ -21,6 +21,10 @@ struct QuizView: View {
     
     @State var currentOutcome: Outcome = .undetermined
     
+    // The list of previous results
+    
+    @State var previousResults: [Result] = [] // empty array
+    
     
     // MARK: Computed properties
     var body: some View {
@@ -60,6 +64,8 @@ struct QuizView: View {
     
     //MARK: Functions
     func checkGuess() {
+        
+        
         if guess == currentItem.word {
             currentOutcome = .correct
             print("correct")
@@ -67,6 +73,18 @@ struct QuizView: View {
             currentOutcome = .incorrect
             print("incorrect")
         }
+        
+        // Save prior result
+        previousResults.insert(
+            Result(
+                item: currentItem,
+                guessProvided: guess,
+                outcome: currentOutcome
+            ),
+            at: 0
+        )
+        // DEBUG: What is in the array
+        print(previousResults)
     }
     
     func newWord() {
