@@ -28,38 +28,57 @@ struct QuizView: View {
     
     // MARK: Computed properties
     var body: some View {
-        
-        VStack {
-            ZStack {
-                Image(currentItem.imageName)
-                    .resizable()
-                    .scaledToFit()
-                
-                Text(currentOutcome.rawValue)
-                    .font(.system(size: 100))
-            }
-            
-            TextField("Guess the food", text: $guess)
-                .padding()
-                .frame(width: 300, height: 50)
-            HStack {
-                
-                Button {
-                    newWord()
-                } label: {
-                    Text("New Word")
+        HStack {
+            // Left Side
+            VStack {
+                ZStack {
+                    Image(currentItem.imageName)
+                        .resizable()
+                        .scaledToFit()
+                    
+                    Text(currentOutcome.rawValue)
+                        .font(.system(size: 100))
                 }
                 
-                
-                Button {
-                    checkGuess()
-                } label : {
-                    Text("Submit")
+                TextField("Guess the food", text: $guess)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                HStack {
+                    
+                    Button {
+                        newWord()
+                    } label: {
+                        Text("New Word")
+                    }
+                    
+                    
+                    Button {
+                        checkGuess()
+                    } label : {
+                        Text("Submit")
+                    }
                 }
+                
             }
             
+            // Right Side
+            
+            List(previousResults) { curentResult in
+              
+                HStack {
+                    Image(curentResult.item.imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                    
+                    Text(curentResult.guessProvided)
+                    
+                    Spacer()
+                    
+                    Text(curentResult.outcome.rawValue)
+                }
+            }
         }
-        
     }
     
     //MARK: Functions
